@@ -30,6 +30,9 @@ view: bg_rld_metrics {
     type: number
     primary_key: yes
     order_by_field: metric_order
+    full_suggestions: yes
+#     suggest_dimension: metric_id
+#     suggest_explore: bg_rld_eav_ids_us_only
     sql: ${TABLE}.metricID ;;
   }
 
