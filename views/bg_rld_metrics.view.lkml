@@ -29,7 +29,7 @@ view: bg_rld_metrics {
     group_label: "Metrics Information"
     type: number
     primary_key: yes
-    order_by_field: metric_order
+#     order_by_field: metric_order
     sql: ${TABLE}.metricID ;;
   }
 
