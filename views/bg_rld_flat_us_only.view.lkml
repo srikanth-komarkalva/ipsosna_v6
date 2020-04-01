@@ -106,7 +106,7 @@ view: bg_rld_flat_us_only {
     group_label: "Demographic Information"
     label: "Country"
     sql: case ${country}
-                WHEN 34 THEN 'US'
+                WHEN 34 THEN 'USA'
                 ELSE
                 cast(${country} AS string)
                 END
@@ -124,12 +124,12 @@ view: bg_rld_flat_us_only {
     group_label: "Demographic Information"
     label: "Wave"
     sql: case ${fv_wave}
-                WHEN 46 THEN '2017H1'
-                WHEN 47 THEN '2017H2'
-                WHEN 48 THEN '2018H1'
-                WHEN 49 THEN '2018H2'
-                WHEN 50 THEN '2019H1'
-                WHEN 51 THEN '2019H2'
+                WHEN 46 THEN 'MY 17'
+                WHEN 47 THEN 'EY 17'
+                WHEN 48 THEN 'MY 18'
+                WHEN 49 THEN 'EY 18'
+                WHEN 50 THEN 'MY 19'
+                WHEN 51 THEN 'EY 19'
                 END
                 ;;
   }
