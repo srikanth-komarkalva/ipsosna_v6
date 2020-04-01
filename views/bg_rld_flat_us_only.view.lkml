@@ -106,7 +106,7 @@ view: bg_rld_flat_us_only {
     group_label: "Demographic Information"
     label: "Country"
     sql: case ${country}
-                WHEN 34 THEN 'Belgium'
+                WHEN 34 THEN 'US'
                 ELSE
                 cast(${country} AS string)
                 END
