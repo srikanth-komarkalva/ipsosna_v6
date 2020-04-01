@@ -1,4 +1,5 @@
 view: bg_rld_responses {
+  label: "Responses Mapping"
   sql_table_name: `BrandgeistRLD_client_deliveries.bg_rldResponses`
     ;;
 

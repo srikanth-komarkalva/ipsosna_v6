@@ -1,4 +1,5 @@
 view: bg_rld_flat_us_only {
+  label: "Demographics"
   sql_table_name: `BrandgeistRLD_client_deliveries.bg_rld_flat_us_only_2020_03_06`
     ;;
 
