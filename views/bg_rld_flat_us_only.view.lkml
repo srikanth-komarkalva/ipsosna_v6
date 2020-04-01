@@ -97,16 +97,41 @@ view: bg_rld_flat_us_only {
 
   dimension: country {
     group_label: "Demographic Information"
-    label: "Country"
+    hidden: yes
     type: number
     sql: ${TABLE}.country ;;
   }
 
+  dimension: country_label {
+    group_label: "Demographic Information"
+    label: "Country"
+    sql: case ${country}
+                WHEN 34 THEN 'Belgium'
+                ELSE
+                cast(${country} AS string)
+                END
+                ;;
+  }
+
   dimension: fv_wave {
     group_label: "Demographic Information"
-    label: "Wave"
+    hidden: yes
     type: number
     sql: ${TABLE}.fv_wave ;;
+  }
+
+  dimension: wave {
+    group_label: "Demographic Information"
+    label: "Wave"
+    sql: case ${fv_wave}
+                WHEN 46 THEN '2017H1'
+                WHEN 47 THEN '2017H2'
+                WHEN 48 THEN '2018H1'
+                WHEN 49 THEN '2018H2'
+                WHEN 50 THEN '2019H1'
+                WHEN 51 THEN '2019H2'
+                END
+                ;;
   }
 
   dimension: respondent_uuid {

@@ -31,6 +31,7 @@ view: bg_rld_responses {
 
   dimension: response_id {
     type: number
+    hidden: yes
     primary_key: yes
     order_by_field: response_order
     group_label: "Respondent Information"
@@ -47,7 +48,7 @@ view: bg_rld_responses {
 
   dimension: response_order {
     type: number
-#     hidden: yes
+    hidden: yes
     group_label: "Respondent Information"
     sql: ${TABLE}.response_order ;;
   }

@@ -29,6 +29,7 @@ view: bg_rld_metrics {
   dimension: metric_id {
     group_label: "Metrics Information"
     type: number
+    hidden: yes
     primary_key: yes
     order_by_field: metric_order
     full_suggestions: yes
@@ -46,6 +47,7 @@ view: bg_rld_metrics {
   dimension: metric_order {
     group_label: "Metrics Information"
     type: number
+    hidden: yes
     sql: ${TABLE}.metric_order ;;
   }
 
