@@ -36,6 +36,20 @@ explore: bg_rld_eav_ids_us_only {
     sql_on: ${bg_rld_eav_ids_us_only.metric_id} = ${bg_rld_metrics.metric_id} ;;
   }
 
+  join: bg_rld_flat_us_labels {
+    view_label: "Brandgeist Crosstab"
+    relationship: one_to_one
+    type: inner
+    sql_on: ${bg_rld_eav_ids_us_only.response_id} = ${bg_rld_flat_us_labels.response_id};;
+  }
+
+#   join: rldcustom {
+#     view_label: "Brandgeist Crosstab"
+#     relationship: many_to_one
+#     type: left_outer
+#     sql_on: ${bg_rld_eav_ids_us_only.metric_id} = ${rldcustom.metric_id} ;;
+#   }  ${bg_rld_eav_ids_us_only.metric_id} = ${bg_rld_flat_us_labels.metric_id}
+
 #   join: bg_rld_eav_labels_us_only {
 #     view_label: "Brandgeist for Users"
 #     relationship: one_to_one

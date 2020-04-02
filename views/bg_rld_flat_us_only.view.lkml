@@ -97,21 +97,63 @@ view: bg_rld_flat_us_only {
 
   dimension: country {
     group_label: "Demographic Information"
-    hidden: yes
+#     hidden: yes
     type: number
     sql: ${TABLE}.country ;;
   }
 
   dimension: country_label {
     group_label: "Demographic Information"
-    label: "Country"
-    sql: case ${country}
-                WHEN 34 THEN 'USA'
-                ELSE
-                cast(${country} AS string)
-                END
-                ;;
+    type: string
+    hidden: yes
+    sql: CASE CAST(${country} AS STRING)
+        WHEN CAST(${bg_rld_flat_us_labels.response_id} AS STRING)
+        THEN ${bg_rld_flat_us_labels.response_label}
+        ELSE CAST(${country} AS STRING)
+        END;;
   }
+
+#   dimension: country_new {
+#     group_label: "Demographic Information"
+# #     hidden: yes
+#     type: string
+#     sql:
+#     CASE ${rldcustom.metricID}
+#     WHEN ${bg_rld_eav_ids_us_only.metric_ID}
+#     THEN ${rldcustom.response_label}
+#     ELSE "NA"
+#     END
+#     ;;
+#   }
+
+#   dimension: country_label {
+#     group_label: "Demographic Information"
+#     type: string
+#     label: "Country Label"
+#     sql: IF(${country} = ${rldcustom.response_id},${rldcustom.response_label},${rldcustom.response_label})
+#     ;;
+#   }
+
+#   dimension: country_label {
+#     group_label: "Demographic Information"
+#     label: "Country"
+#     sql: case ${country}
+#                 WHEN 34 THEN 'USA'
+#                 ELSE
+#                 cast(${country} AS string)
+#                 END
+#                 ;;
+#   }  AND responseID = ${TABLE}.country
+
+#   dimension: country_sql {
+#     group_label: "Demographic Information"
+#     label: "Country Sql"
+#     sql:  (SELECT response_label
+#           FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` m
+#           INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` r ON m.metricID=r.metricID
+#           WHERE m.metric_code ='bd_country'
+#           limit 1) ;;
+#   }
 
   dimension: fv_wave {
     group_label: "Demographic Information"
