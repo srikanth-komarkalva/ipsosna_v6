@@ -127,7 +127,7 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat
 
   dimension: brands_aware_of {
     group_label: "Demographic Information"
-    label: "Brands aware of"
+    label: "Brand Awareness"
     type: string
     sql: ${TABLE}.brandsAwareOf ;;
   }
