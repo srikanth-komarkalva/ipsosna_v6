@@ -317,9 +317,4 @@ dimension: confidence_interval_dim {
 set: detail {
   fields: [bd_age_label,bd_gender_label,country_label,fv_wave_label,respondent_uuid,wtct]
 }
-
-  measure: count {
-    type: count
-    drill_fields: []
-  }
 }
