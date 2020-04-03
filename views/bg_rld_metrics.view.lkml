@@ -21,14 +21,14 @@ view: bg_rld_metrics {
   }
 
   dimension: metric_code {
-    group_label: "Metrics Information"
+    group_label: "Question Information"
     type: string
     order_by_field: metric_order
     sql: ${TABLE}.metric_code ;;
   }
 
   dimension: metric_id {
-    group_label: "Metrics Information"
+    group_label: "Question Information"
     type: number
     hidden: yes
     primary_key: yes
@@ -40,14 +40,14 @@ view: bg_rld_metrics {
   }
 
   dimension: metric_label {
-    group_label: "Metrics Information"
+    group_label: "Question Information"
     type: string
     order_by_field: metric_order
     sql: ${TABLE}.metric_label ;;
   }
 
   dimension: metric_order {
-    group_label: "Metrics Information"
+    group_label: "Question Information"
     type: number
     hidden: yes
     sql: ${TABLE}.metric_order ;;
