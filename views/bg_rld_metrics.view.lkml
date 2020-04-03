@@ -23,6 +23,7 @@ view: bg_rld_metrics {
   dimension: metric_code {
     group_label: "Metrics Information"
     type: string
+    order_by_field: metric_order
     sql: ${TABLE}.metric_code ;;
   }
 
@@ -41,6 +42,7 @@ view: bg_rld_metrics {
   dimension: metric_label {
     group_label: "Metrics Information"
     type: string
+    order_by_field: metric_order
     sql: ${TABLE}.metric_label ;;
   }
 
