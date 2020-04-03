@@ -1,8 +1,31 @@
-view: bg_rld_flat_us_only {
+view: bg_rld_flat_us_with_labels {
   label: "Demographics"
-  sql_table_name: `BrandgeistRLD_client_deliveries.bg_rld_flat_us_only_2020_03_06`
-    ;;
+  derived_table: {
+    datagroup_trigger: ipsosna_v6_default_datagroup
+    partition_keys: ["dummydate"]
+    cluster_keys: ["country","fv_wave"]
+    sql: SELECT rowID,respondent_uuid,weight,country,
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
+inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+where metric.metric_code = 'bd_country' AND resp.responseid = flat_us.country) as country_label,
+fv_wave,
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
+inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+where metric.metric_code = "fv_wave" AND resp.responseid = flat_us.fv_wave) as fv_wave_label,
+bd_age,
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
+inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+where metric.metric_code like "%age_group%" AND resp.responseid = flat_us.bd_age) as bd_age_label,
+bd_gender,
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
+inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+where metric.metric_code = "bd_gender" AND resp.responseid = flat_us.bd_gender) as bd_gender_label,
+brandsAwareOf,
+cast('2000-01-01' as date) as dummydate
+FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat_us_only_2020_03_06` flat_us ;;
+}
 
+#   sql_table_name: `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat_us_with_labels`
 #Defining parameters for Dynamic column selection in Cross tab charts
   parameter: attribute_selector1 {
     label: "Banner Selector 1"
@@ -75,22 +98,36 @@ view: bg_rld_flat_us_only {
   }
 
   dimension: bd_age {
-    label: "Age"
+    hidden: yes
     group_label: "Demographic Information"
     type: number
     sql: ${TABLE}.bd_age ;;
   }
 
+  dimension: bd_age_label {
+    group_label: "Demographic Information"
+    type: string
+    label: "Age"
+    sql: ${TABLE}.bd_age_label ;;
+  }
+
   dimension: bd_gender {
     group_label: "Demographic Information"
-    label: "Gender"
+    hidden: yes
     type: number
     sql: ${TABLE}.bd_gender ;;
   }
 
-  dimension: brands_aware_of {
-    label: "Brands aware of"
+  dimension: bd_gender_label {
     group_label: "Demographic Information"
+    label: "Gender"
+    type: string
+    sql: ${TABLE}.bd_gender_label ;;
+  }
+
+  dimension: brands_aware_of {
+    group_label: "Demographic Information"
+    label: "Brands aware of"
     type: string
     sql: ${TABLE}.brandsAwareOf ;;
   }
@@ -98,62 +135,17 @@ view: bg_rld_flat_us_only {
   dimension: country {
     group_label: "Demographic Information"
 #     hidden: yes
+    label: "Country"
     type: number
     sql: ${TABLE}.country ;;
   }
 
   dimension: country_label {
     group_label: "Demographic Information"
+    label: "Country Label"
     type: string
-    hidden: yes
-    sql: CASE CAST(${country} AS STRING)
-        WHEN CAST(${bg_rld_flat_us_labels.response_id} AS STRING)
-        THEN ${bg_rld_flat_us_labels.response_label}
-        ELSE CAST(${country} AS STRING)
-        END;;
+    sql: ${TABLE}.country_label ;;
   }
-
-#   dimension: country_new {
-#     group_label: "Demographic Information"
-# #     hidden: yes
-#     type: string
-#     sql:
-#     CASE ${rldcustom.metricID}
-#     WHEN ${bg_rld_eav_ids_us_only.metric_ID}
-#     THEN ${rldcustom.response_label}
-#     ELSE "NA"
-#     END
-#     ;;
-#   }
-
-#   dimension: country_label {
-#     group_label: "Demographic Information"
-#     type: string
-#     label: "Country Label"
-#     sql: IF(${country} = ${rldcustom.response_id},${rldcustom.response_label},${rldcustom.response_label})
-#     ;;
-#   }
-
-#   dimension: country_label {
-#     group_label: "Demographic Information"
-#     label: "Country"
-#     sql: case ${country}
-#                 WHEN 34 THEN 'USA'
-#                 ELSE
-#                 cast(${country} AS string)
-#                 END
-#                 ;;
-#   }  AND responseID = ${TABLE}.country
-
-#   dimension: country_sql {
-#     group_label: "Demographic Information"
-#     label: "Country Sql"
-#     sql:  (SELECT response_label
-#           FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` m
-#           INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` r ON m.metricID=r.metricID
-#           WHERE m.metric_code ='bd_country'
-#           limit 1) ;;
-#   }
 
   dimension: fv_wave {
     group_label: "Demographic Information"
@@ -162,37 +154,28 @@ view: bg_rld_flat_us_only {
     sql: ${TABLE}.fv_wave ;;
   }
 
-  dimension: wave {
+  dimension: fv_wave_label {
+    type: string
     group_label: "Demographic Information"
     label: "Wave"
-    sql: case ${fv_wave}
-                WHEN 46 THEN 'MY 17'
-                WHEN 47 THEN 'EY 17'
-                WHEN 48 THEN 'MY 18'
-                WHEN 49 THEN 'EY 18'
-                WHEN 50 THEN 'MY 19'
-                WHEN 51 THEN 'EY 19'
-                END
-                ;;
+    sql: ${TABLE}.fv_wave_label ;;
   }
 
   dimension: respondent_uuid {
-    group_label: "Respondent Information"
     type: string
-    primary_key: yes
     hidden: yes
     sql: ${TABLE}.respondent_uuid ;;
   }
 
   dimension: row_id {
-    hidden: yes
     type: number
+    hidden: yes
     sql: ${TABLE}.rowID ;;
   }
 
   dimension: weight {
-    hidden: yes
     type: number
+    hidden: yes
     sql: ${TABLE}.weight ;;
   }
 
@@ -221,50 +204,37 @@ view: bg_rld_flat_us_only {
           -- all bg_rld_eav_ids_us_only fields
               {% if bg_rld_eav_ids_us_only.metric_id._is_selected %} ${bg_rld_eav_ids_us_only.metric_id} , {% endif %}
 
-          -- all bg_rld_responses fields
-          --    {% if bg_rld_responses.response_id._is_selected %} ${bg_rld_responses.response_id} , {% endif %}
-          --    {% if bg_rld_responses.response_code._is_selected %} ${bg_rld_responses.response_code} , {% endif %}
-          --    {% if bg_rld_responses.response_label._is_selected %} ${bg_rld_responses.response_label} , {% endif %}
-
           -- all bg_rld_flat_us_only fields
-              {% if attribute_selector1._parameter_value == 'country' and attribute_selector1_dim._is_selected %}
-                      ${country} ,
-              {% elsif attribute_selector2._parameter_value == 'country' and attribute_selector2_dim._is_selected %}
-                      ${country} ,
-              {% elsif country._is_selected %}
-                      ${country} ,
+              {% if attribute_selector1._parameter_value == 'country_label' and attribute_selector1_dim._is_selected %}
+                      ${country_label} ,
+              {% elsif attribute_selector2._parameter_value == 'country_label' and attribute_selector2_dim._is_selected %}
+                      ${country_label} ,
+              {% elsif country_label._is_selected %}
+                      ${country_label} ,
               {% endif %}
 
-              {% if attribute_selector1._parameter_value == 'fv_wave' and attribute_selector1_dim._is_selected %}
-                      ${fv_wave} ,
-              {% elsif attribute_selector2._parameter_value == 'fv_wave' and attribute_selector2_dim._is_selected %}
-                      ${fv_wave} ,
-              {% elsif fv_wave._is_selected %}
-                      ${fv_wave} ,
+              {% if attribute_selector1._parameter_value == 'fv_wave_label' and attribute_selector1_dim._is_selected %}
+                      ${fv_wave_label} ,
+              {% elsif attribute_selector2._parameter_value == 'fv_wave_label' and attribute_selector2_dim._is_selected %}
+                      ${fv_wave_label} ,
+              {% elsif fv_wave_label._is_selected %}
+                      ${fv_wave_label} ,
               {% endif %}
 
-              {% if attribute_selector1._parameter_value == 'bd_age' and attribute_selector1_dim._is_selected %}
-                      ${bd_age} ,
-              {% elsif attribute_selector2._parameter_value == 'bd_age' and attribute_selector2_dim._is_selected %}
-                      ${bd_age} ,
-              {% elsif bd_age._is_selected %}
-                      ${bd_age} ,
+              {% if attribute_selector1._parameter_value == 'bd_age_label' and attribute_selector1_dim._is_selected %}
+                      ${bd_age_label} ,
+              {% elsif attribute_selector2._parameter_value == 'bd_age_label' and attribute_selector2_dim._is_selected %}
+                      ${bd_age_label} ,
+              {% elsif bd_age_label._is_selected %}
+                      ${bd_age_label} ,
               {% endif %}
 
-              {% if attribute_selector1._parameter_value == 'bd_age' and attribute_selector1_dim._is_selected %}
-                      ${bd_age} ,
-              {% elsif attribute_selector2._parameter_value == 'bd_age' and attribute_selector2_dim._is_selected %}
-                      ${bd_age} ,
-              {% elsif bd_age._is_selected %}
-                      ${bd_age} ,
-              {% endif %}
-
-              {% if attribute_selector1._parameter_value == 'bd_gender' and attribute_selector1_dim._is_selected %}
-                      ${bd_gender} ,
-              {% elsif attribute_selector2._parameter_value == 'bd_gender' and attribute_selector2_dim._is_selected %}
-                      ${bd_gender} ,
-              {% elsif bd_gender._is_selected %}
-                      ${bd_gender} ,
+              {% if attribute_selector1._parameter_value == 'bd_gender_label' and attribute_selector1_dim._is_selected %}
+                      ${bd_gender_label} ,
+              {% elsif attribute_selector2._parameter_value == 'bd_gender_label' and attribute_selector2_dim._is_selected %}
+                      ${bd_gender_label} ,
+              {% elsif bd_gender_label._is_selected %}
+                      ${bd_gender_label} ,
               {% endif %}
 
               {% if attribute_selector1._parameter_value == 'brands_aware_of' and attribute_selector1_dim._is_selected %}
@@ -274,8 +244,6 @@ view: bg_rld_flat_us_only {
               {% elsif brands_aware_of._is_selected %}
                       ${brands_aware_of} ,
               {% endif %}
-
-              {% if bg_rld_flat_us_only.respondent_uuid._is_selected %} ${bg_rld_flat_us_only.respondent_uuid} , {% endif %}
               1)
               ;;
   }
@@ -346,7 +314,12 @@ dimension: confidence_interval_dim {
   sql:  {% parameter confidence_interval  %};;
 }
 
-  set: detail {
-    fields: [bd_age,bd_gender,country,fv_wave,respondent_uuid,wtct]
+set: detail {
+  fields: [bd_age_label,bd_gender_label,country_label,fv_wave_label,respondent_uuid,wtct]
+}
+
+  measure: count {
+    type: count
+    drill_fields: []
   }
 }
