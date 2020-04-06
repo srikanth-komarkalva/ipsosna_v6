@@ -15,7 +15,7 @@ where metric.metric_code = "fv_wave" AND resp.responseid = flat_us.fv_wave) as f
 bd_age,
 (SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
 inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
-where metric.metric_code like "%age_group%" AND resp.responseid = flat_us.bd_age) as bd_age_label,
+where metric.metric_code like "%bd_age%" AND resp.responseid = flat_us.bd_age) as bd_age_label,
 bd_gender,
 (SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
 inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
@@ -48,10 +48,10 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat
       label: "Gender"
       value: "bd_gender_label"
     }
-    allowed_value: {
-      label: "Brands aware of"
-      value: "brands_aware_of"
-    }
+#     allowed_value: {
+#       label: "Brands aware of"
+#       value: "brands_aware_of"
+#     }
   }
 
   parameter: attribute_selector2 {
@@ -75,15 +75,16 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat
       label: "Gender"
       value: "bd_gender_label"
     }
-    allowed_value: {
-      label: "Brands aware of"
-      value: "brands_aware_of"
-    }
+#     allowed_value: {
+#       label: "Brands aware of"
+#       value: "brands_aware_of"
+#     }
   }
 
   dimension: attribute_selector1_dim {
     group_label: "Banner Analysis"
     label: "Banner Selector 1"
+    order_by_field: attribute_selector1_sort
     description: "To be used with the Banner Selector filters"
     label_from_parameter: attribute_selector1
     sql: ${TABLE}.{% parameter attribute_selector1 %};;
@@ -92,9 +93,30 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat
   dimension: attribute_selector2_dim {
     group_label: "Banner Analysis"
     label: "Banner Selector 2"
+    order_by_field: attribute_selector2_sort
     description: "To be used with the Banner Selector filters"
     label_from_parameter: attribute_selector2
     sql: ${TABLE}.{% parameter attribute_selector2 %};;
+  }
+
+  dimension: attribute_selector1_sort {
+    hidden: yes
+    sql:
+    {% if attribute_selector1._parameter_value == 'fv_wave_label' %}
+      ${fv_wave}
+    {% else %}
+      ${attribute_selector1_dim}
+    {% endif %};;
+  }
+
+  dimension: attribute_selector2_sort {
+    hidden: yes
+    sql:
+    {% if attribute_selector2._parameter_value == 'fv_wave_label' %}
+      ${fv_wave}
+    {% else %}
+      ${attribute_selector2_dim}
+    {% endif %};;
   }
 
   dimension: bd_age {
@@ -158,6 +180,7 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat
     type: string
     group_label: "Demographic Information"
     label: "Wave"
+    order_by_field: fv_wave
     sql: ${TABLE}.fv_wave_label ;;
   }
 
