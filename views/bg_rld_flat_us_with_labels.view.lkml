@@ -34,19 +34,19 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat
 
     allowed_value: {
       label: "Country"
-      value: "country"
+      value: "country_label"
     }
     allowed_value: {
       label: "Wave"
-      value: "fv_wave"
+      value: "fv_wave_label"
     }
     allowed_value: {
       label: "Age"
-      value: "bd_age"
+      value: "bd_age_label"
     }
     allowed_value: {
       label: "Gender"
-      value: "bd_gender"
+      value: "bd_gender_label"
     }
     allowed_value: {
       label: "Brands aware of"
@@ -61,19 +61,19 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat
 
     allowed_value: {
       label: "Country"
-      value: "country"
+      value: "country_label"
     }
     allowed_value: {
       label: "Wave"
-      value: "fv_wave"
+      value: "fv_wave_label"
     }
     allowed_value: {
       label: "Age"
-      value: "bd_age"
+      value: "bd_age_label"
     }
     allowed_value: {
       label: "Gender"
-      value: "bd_gender"
+      value: "bd_gender_label"
     }
     allowed_value: {
       label: "Brands aware of"
