@@ -5,7 +5,7 @@ include: "/views/**/*.view"
 
  datagroup: ipsosna_v6_default_datagroup {
    sql_trigger: SELECT TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(),hour) ;;
-   max_cache_age: "1 hour"
+   max_cache_age: "24 hours"
  }
 
  persist_with: ipsosna_v6_default_datagroup
