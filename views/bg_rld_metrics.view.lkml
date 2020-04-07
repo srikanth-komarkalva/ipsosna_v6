@@ -49,7 +49,7 @@ view: bg_rld_metrics {
   dimension: metric_order {
     group_label: "Question Information"
     type: number
-    hidden: yes
+#     hidden: yes
     sql: ${TABLE}.metric_order ;;
   }
 

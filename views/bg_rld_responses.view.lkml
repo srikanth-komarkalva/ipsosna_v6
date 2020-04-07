@@ -48,7 +48,7 @@ view: bg_rld_responses {
 
   dimension: response_order {
     type: number
-    hidden: yes
+#     hidden: yes
     group_label: "Question Information"
     sql: ${TABLE}.response_order ;;
   }
