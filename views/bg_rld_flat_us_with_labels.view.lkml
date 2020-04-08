@@ -5,27 +5,31 @@ view: bg_rld_flat_us_with_labels {
     partition_keys: ["dummydate"]
     cluster_keys: ["country","fv_wave"]
     sql: SELECT rowID,respondent_uuid,weight,country,
-(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
-inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldResponses` resp
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_eav_ids_us_only_2020_03_05` fact on resp.responseid = fact.responseid
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldMetrics` metric on resp.metricid= metric.metricid
 where metric.metric_code = 'bd_country' AND resp.responseid = flat_us.country) as country_label,
 fv_wave,
-(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
-inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldResponses` resp
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_eav_ids_us_only_2020_03_05` fact on resp.responseid = fact.responseid
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldMetrics` metric on resp.metricid= metric.metricid
 where metric.metric_code = "fv_wave" AND resp.responseid = flat_us.fv_wave) as fv_wave_label,
 bd_age,
-(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
-inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldResponses` resp
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_eav_ids_us_only_2020_03_05` fact on resp.responseid = fact.responseid
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldMetrics` metric on resp.metricid= metric.metricid
 where metric.metric_code like "%bd_age%" AND resp.responseid = flat_us.bd_age) as bd_age_label,
 bd_gender,
-(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldResponses` resp INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06` fact on resp.responseid = fact.responseid
-inner join `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rldMetrics` metric on resp.metricid= metric.metricid
+(SELECT distinct resp.response_label FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldResponses` resp
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_eav_ids_us_only_2020_03_05` fact on resp.responseid = fact.responseid
+INNER JOIN `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldMetrics` metric on resp.metricid= metric.metricid
 where metric.metric_code = "bd_gender" AND resp.responseid = flat_us.bd_gender) as bd_gender_label,
 brandsAwareOf,
 cast('2000-01-01' as date) as dummydate
-FROM `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat_us_only_2020_03_06` flat_us ;;
+FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_flat_us_only_2020_03_05` flat_us ;;
 }
 
-#   sql_table_name: `mgcp-1192365-ipsos-gbht-srf617.BrandgeistRLD_client_deliveries.bg_rld_flat_us_with_labels`
+#   sql_table_name: `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_flat_us_with_labels`
 #Defining parameters for Dynamic column selection in Cross tab charts
   parameter: attribute_selector1 {
     label: "Banner Selector 1"

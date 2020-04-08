@@ -1,6 +1,6 @@
 view: bg_rld_responses {
   label: "Responses Mapping"
-  sql_table_name: `BrandgeistRLD_client_deliveries.bg_rldResponses`
+  sql_table_name: `Brandgeist.bg_rldResponses`
     ;;
 
   dimension: dimensions_label {

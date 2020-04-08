@@ -1,6 +1,6 @@
 view: bg_rld_metrics {
   label: "Metrics Master"
-  sql_table_name: `BrandgeistRLD_client_deliveries.bg_rldMetrics`;;
+  sql_table_name: `Brandgeist.bg_rldMetrics`;;
 
   dimension: dimensions_label {
     group_label: "Demographic Information"

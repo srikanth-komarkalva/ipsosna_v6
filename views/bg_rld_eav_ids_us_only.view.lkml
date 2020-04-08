@@ -1,6 +1,6 @@
 view: bg_rld_eav_ids_us_only {
   label: "EAV Fact"
-  sql_table_name: `BrandgeistRLD_client_deliveries.bg_rld_eav_ids_us_only_2020_03_06`
+  sql_table_name: `Brandgeist.bg_rld_eav_ids_us_only_2020_03_05`
     ;;
 
   dimension: metric_id {
