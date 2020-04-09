@@ -27,7 +27,7 @@ view: brandgeist_rld_metric_hdata {
   dimension: bd_country {
     group_label: "Demographic Fields"
     type: string
-#     hidden: yes
+    hidden: yes
     sql: ${TABLE}.bd_country ;;
   }
 
