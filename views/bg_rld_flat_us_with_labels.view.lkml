@@ -125,41 +125,41 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_flat_us_only_2020_03_05` 
 
   dimension: bd_age {
     hidden: yes
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     type: number
     sql: ${TABLE}.bd_age ;;
   }
 
   dimension: bd_age_label {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     type: string
     label: "Age"
     sql: ${TABLE}.bd_age_label ;;
   }
 
   dimension: bd_gender {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     hidden: yes
     type: number
     sql: ${TABLE}.bd_gender ;;
   }
 
   dimension: bd_gender_label {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     label: "Gender"
     type: string
     sql: ${TABLE}.bd_gender_label ;;
   }
 
   dimension: brands_aware_of {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     label: "Brand Awareness"
     type: string
     sql: ${TABLE}.brandsAwareOf ;;
   }
 
   dimension: country {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
 #     hidden: yes
     label: "Country"
     type: number
@@ -167,14 +167,14 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_flat_us_only_2020_03_05` 
   }
 
   dimension: country_label {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     label: "Country Label"
     type: string
     sql: ${TABLE}.country_label ;;
   }
 
   dimension: fv_wave {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     hidden: yes
     type: number
     sql: ${TABLE}.fv_wave ;;
@@ -182,7 +182,7 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_flat_us_only_2020_03_05` 
 
   dimension: fv_wave_label {
     type: string
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     label: "Wave"
     order_by_field: fv_wave
     sql: ${TABLE}.fv_wave_label ;;

@@ -3,19 +3,19 @@ view: bg_rld_metrics {
   sql_table_name: `Brandgeist.bg_rldMetrics`;;
 
   dimension: dimensions_label {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     type: string
     sql: ${TABLE}.DimensionsLabel ;;
   }
 
   dimension: dimensions_name {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     type: string
     sql: ${TABLE}.DimensionsName ;;
   }
 
   dimension: dimensions_variable_id {
-    group_label: "Demographic Information"
+    group_label: "Demographic Fields"
     type: number
     sql: ${TABLE}.Dimensions_VariableID ;;
   }
