@@ -548,12 +548,12 @@ explore: brandgeist_users {
 #     sql_on: ${bg_rld_eav_ids_us_only.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
 #   }
 #
-#   join: bg_rld_eav_labels_us_only {
-#     view_label: "Brandgeist for Users"
-#     relationship: one_to_one
-#     type: left_outer
-#     sql_on: ${bg_rld_eav_labels_us_only.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
-#   }
+  join: bg_rld_eav_labels_us_only {
+    view_label: "Brandgeist for Users"
+    relationship: one_to_one
+    type: left_outer
+    sql_on: ${bg_rld_eav_labels_us_only.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
+  }
 
   join: bg_rld_flat_us_with_labels_2 {
     view_label: "Brandgeist for Users"
