@@ -95,7 +95,12 @@ view: brandgeist_rld_metric_hdata {
     sql: ${TABLE}.bd_urban ;;
   }
 
+#   dimension: description_text {
+#     sql: (SELECT metric_label FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rldMetrics` WHERE metric_code = "bp_coat_advice") ;;
+#   }
+
   dimension: bp_coat_advice {
+#     description: {{ brandgeist_rld_metric_hdata.description_text._value }}
     group_label: "Question Information"
     type: string
     description: "COAT : People often look to me for guidance and advice"

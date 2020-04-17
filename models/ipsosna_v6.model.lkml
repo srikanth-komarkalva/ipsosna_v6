@@ -41,6 +41,27 @@ explore: brandgeist_users {
   label: "Brandgeist for Users"
   view_name: brandgeist_rld_metric_hdata
   view_label: "Brandgeist for Users"
+#   join: bg_rld_eav_ids_us_only {
+#     view_label: "Brandgeist for Users"
+#     relationship: one_to_one
+#     type: left_outer
+#     sql_on: ${bg_rld_eav_ids_us_only.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
+#   }
+  join: bg_rld_eav_labels_us_only {
+    view_label: "Brandgeist for Users"
+    relationship: one_to_one
+    type: left_outer
+    sql_on: ${bg_rld_eav_labels_us_only.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
+  }
+
+  join: bg_rld_flat_us_with_labels_2 {
+    view_label: "Brandgeist for Users"
+    relationship: one_to_one
+    type: left_outer
+    sql_on: ${bg_rld_flat_us_with_labels_2.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
+  }
+}
+
 #   always_filter: {
 #     filters: [
 #       bp_coat_advice  : "-Not Asked"  ,
@@ -540,25 +561,3 @@ explore: brandgeist_users {
 #       qq_m_trust_attr_users_first_microsoft : "-Not Asked"  ,
 #       qq_m_trust_attr_users_first_youtube : "-Not Asked"]
 #   }
-
-#   join: bg_rld_eav_ids_us_only {
-#     view_label: "Brandgeist for Users"
-#     relationship: one_to_one
-#     type: left_outer
-#     sql_on: ${bg_rld_eav_ids_us_only.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
-#   }
-#
-  join: bg_rld_eav_labels_us_only {
-    view_label: "Brandgeist for Users"
-    relationship: one_to_one
-    type: left_outer
-    sql_on: ${bg_rld_eav_labels_us_only.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
-  }
-
-  join: bg_rld_flat_us_with_labels_2 {
-    view_label: "Brandgeist for Users"
-    relationship: one_to_one
-    type: left_outer
-    sql_on: ${bg_rld_flat_us_with_labels_2.respondent_uuid} = ${brandgeist_rld_metric_hdata.respondent_uuid};;
-  }
-}
