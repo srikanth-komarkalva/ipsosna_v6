@@ -279,7 +279,7 @@ FROM `mgcp-1192365-ipsos-gbht-srf617.Brandgeist.bg_rld_flat_us_only_2020_03_05` 
     type: number
     group_label: "Weight Metrics"
     label: "Percent of Base"
-    sql: ${wtct}/${sum_wtct_subtotal} ;;
+    sql: ${wtct}/NULLIF(${sum_wtct_subtotal},0) ;;
     drill_fields: [detail*]
     value_format_name: percent_0
   }

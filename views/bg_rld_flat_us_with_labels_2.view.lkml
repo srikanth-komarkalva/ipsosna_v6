@@ -152,7 +152,7 @@ view: bg_rld_flat_us_with_labels_2 {
     type: number
     group_label: "Weight Metrics"
     label: "Percent of Base"
-    sql: ${wtct}/${sum_wtct_subtotal} ;;
+    sql: ${wtct}/NULLIF(${sum_wtct_subtotal},0) ;;
     drill_fields: [detail*]
     value_format_name: percent_0
   }
